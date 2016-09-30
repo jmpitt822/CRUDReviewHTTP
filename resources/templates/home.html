@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{{^userName}}
+<form action="/login" method="post">
+    <input type="text" placeholder="Enter your name" name="loginName"/>
+    <input type="text" placeholder="Enter your password" name="password"/>
+    <button type="submit">Login</button>
+</form>
+{{/userName}}
+
+{{#userName}}
+Welcome, {{.}} &nbsp; &nbsp; &nbsp;
+<form action="/logout" method="post">
+    <button type="submit">Logout</button>
+</form>
+<br>
+<form action="/create-character" method="post">
+    <input type="text" placeholder="Name" name="charName"/>
+    <input type="text" placeholder="Title" name="charTitle"/>
+    <input type="text" placeholder="Genre" name="charGenre"/>
+    <input type="text" placeholder="Medium" name="charMedium"/>
+    <button type="submit">Create Character</button>
+</form>
+
+{{/userName}}
+<ol>
+    {{#characters}}
+    <li>{{.}}</li>
+    {{#author}}
+    <form action="/delete-character" method="post">
+        <input type="hidden" value="{{id}}" name="deleteChar"/>
+        <button type="submit">Delete</button>
+        </form>
+    <form action="/edit-item" method="get">
+        <input type="hidden" value="{{id}}" name="editChar"/>
+        <button type="submit">Edit Character</button>
+    </form>
+    {{/author}}
+    {{/characters}}
+</ol>
+</body>
+</html>
